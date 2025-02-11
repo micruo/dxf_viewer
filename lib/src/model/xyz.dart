@@ -8,12 +8,18 @@ abstract class DxfXyz extends DxfEntity {
   double _y = 0;
   double _z = 0;
 
-  DxfXyz(DXF dxf, String type, String layerName, String marker, double x, double y, double z, List<Code> addGroups)
+  DxfXyz(DXF dxf, String type, String layerName, String marker, double x,
+      double y, double z, List<Code> addGroups)
       : _x = x,
         _y = y,
         _z = z,
-        super(dxf, type, layerName,
-            [Code(100, marker), Code(10, x), Code(20, y), Code(30, z)].followedBy(addGroups).toList());
+        super(
+            dxf,
+            type,
+            layerName,
+            [Code(100, marker), Code(10, x), Code(20, y), Code(30, z)]
+                .followedBy(addGroups)
+                .toList());
 
   double get x => _x;
   set x(double value) {

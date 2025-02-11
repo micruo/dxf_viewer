@@ -19,8 +19,10 @@ class HeaderSection extends Section {
   }
 
   Bounds getBounds() {
-    int min = codes.indexWhere((element) => element.code == 9 && element.value == '\$EXTMIN');
-    int max = codes.indexWhere((element) => element.code == 9 && element.value == '\$EXTMAX');
+    int min = codes.indexWhere(
+        (element) => element.code == 9 && element.value == '\$EXTMIN');
+    int max = codes.indexWhere(
+        (element) => element.code == 9 && element.value == '\$EXTMAX');
     Bounds b = Bounds();
     b.minX = codes[min + 1].value;
     b.minY = codes[min + 2].value;
@@ -30,8 +32,10 @@ class HeaderSection extends Section {
   }
 
   void setBounds(Bounds bounds) {
-    int min = codes.indexWhere((element) => element.code == 9 && element.value == '\$EXTMIN');
-    int max = codes.indexWhere((element) => element.code == 9 && element.value == '\$EXTMAX');
+    int min = codes.indexWhere(
+        (element) => element.code == 9 && element.value == '\$EXTMIN');
+    int max = codes.indexWhere(
+        (element) => element.code == 9 && element.value == '\$EXTMAX');
     codes[min + 1].value = bounds.minX;
     codes[min + 2].value = bounds.minY;
     codes[max + 1].value = bounds.maxX;

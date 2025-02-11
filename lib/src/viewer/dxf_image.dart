@@ -12,12 +12,13 @@ class DxfImage {
   final DXF _dxf;
   final Size scale;
   DxfImage(this._dxf, [this.scale = const Size(1, 1)]);
-  DxfImage.fromFile(File f, [this.scale = const Size(1, 1)]) : _dxf = DXF.fromFile(f);
+  DxfImage.fromFile(File f, [this.scale = const Size(1, 1)])
+      : _dxf = DXF.fromFile(f);
 
   void paint(Canvas canvas, Size size) {
     Bounds bounds = _dxf.bounds;
-    double iScale =
-        min(size.width / (bounds.maxX - bounds.minX + 10), size.height / (bounds.maxY - bounds.minY + 10));
+    double iScale = min(size.width / (bounds.maxX - bounds.minX + 10),
+        size.height / (bounds.maxY - bounds.minY + 10));
     var paint = Paint()
       ..color = Colors.black54
       ..strokeWidth = 0.5 / iScale

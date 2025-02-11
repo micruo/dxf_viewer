@@ -26,7 +26,11 @@ class Block extends DxfXyz with DxfSet {
     }
   }
 
-  Block(DXF dxf, {required String name, int type = 0, String layerName = '0', required List<DxfEntity> entities})
+  Block(DXF dxf,
+      {required String name,
+      int type = 0,
+      String layerName = '0',
+      required List<DxfEntity> entities})
       : _bType = type,
         _name = name,
         super(
@@ -41,7 +45,9 @@ class Block extends DxfXyz with DxfSet {
               Code(2, name),
               Code(70, type),
               Code(3, name),
-            ].followedBy(entities.expand((element) => element.codes)).toList()) {
+            ]
+                .followedBy(entities.expand((element) => element.codes))
+                .toList()) {
     addEntities(entities);
   }
 }

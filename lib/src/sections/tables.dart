@@ -16,6 +16,7 @@ class TablesSection extends Section {
     section.from(codes);
     return section;
   }
+
   /// Insert a block inside tables
   void insertBlock(String blockName, String handle) {
     var idx = codes.indexWhere((e) => e.code == 2 && e.value == 'BLOCK_RECORD');

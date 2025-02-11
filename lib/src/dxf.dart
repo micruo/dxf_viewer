@@ -62,7 +62,8 @@ class DXF {
 
   /// Create a new DXF object
   static Future<DXF> create() async {
-    var dxf = DXF(await rootBundle.loadString('packages/dxf_viewer/assets/init.dxf'));
+    var dxf =
+        DXF(await rootBundle.loadString('packages/dxf_viewer/assets/init.dxf'));
     return dxf;
   }
 
@@ -159,7 +160,8 @@ class DXF {
     await out.close();
   }
 
-  String modelSpace() => _blocksSection.getBlockByName("*Model_Space").getCode(5);
+  String modelSpace() =>
+      _blocksSection.getBlockByName("*Model_Space").getCode(5);
 
   /// merge a second DXF into this, as a new BLOCK called [name], at [x],[y],[z] position
   void merge(DXF d, String name, {double x = 0, double y = 0, double z = 0}) {
@@ -170,7 +172,8 @@ class DXF {
       e.setCode(330, h);
       return e;
     }));
-    DxfEntity endBlk = DxfEntity(this, 'ENDBLK', '0', [Code(100, 'AcDbBlockEnd')], h);
+    DxfEntity endBlk =
+        DxfEntity(this, 'ENDBLK', '0', [Code(100, 'AcDbBlockEnd')], h);
     newEnt.add(endBlk);
     Block b = Block(this, name: name, entities: newEnt);
     _blocksSection.addBlock(b);
@@ -191,9 +194,11 @@ class Code {
     }
   }
 
-  static Code? trySearch(List<Code> group, int code) => group.where((element) => element.code == code).firstOrNull;
+  static Code? trySearch(List<Code> group, int code) =>
+      group.where((element) => element.code == code).firstOrNull;
 
-  void write(StringSink s) => s.write('${code.toString().padLeft(3, ' ')}\r\n$value\r\n');
+  void write(StringSink s) =>
+      s.write('${code.toString().padLeft(3, ' ')}\r\n$value\r\n');
 }
 
 class Bounds {
@@ -201,5 +206,6 @@ class Bounds {
   double minY = 1e30;
   double maxX = -1e30;
   double maxY = -1e30;
-  Map<String, double> toJson() => {'minX': minX, 'minY': minY, 'maxX': maxX, 'maxY': maxY};
+  Map<String, double> toJson() =>
+      {'minX': minX, 'minY': minY, 'maxX': maxX, 'maxY': maxY};
 }

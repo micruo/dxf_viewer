@@ -68,8 +68,11 @@ class DxfPolyline extends DxfEntity {
   @override
   void draw(BlocksSection blocks, Canvas canvas, Paint paint) {
     for (int i = 0; i < _vertices.length; i++) {
-      canvas.drawLine(Offset(_vertices[i].x, _vertices[i].y),
-          Offset(_vertices[(i + 1) % _vertices.length].x, _vertices[(i + 1) % _vertices.length].y), paint);
+      canvas.drawLine(
+          Offset(_vertices[i].x, _vertices[i].y),
+          Offset(_vertices[(i + 1) % _vertices.length].x,
+              _vertices[(i + 1) % _vertices.length].y),
+          paint);
     }
   }
 
@@ -77,12 +80,15 @@ class DxfPolyline extends DxfEntity {
     DXF dxf, {
     required List<List<double>> vertices,
     String layerName = '0',
-  })  : _vertices = vertices.map((e) => DxfVertex.fromDouble(dxf, e[0], e[1], e[2], layerName)).toList(),
+  })  : _vertices = vertices
+            .map((e) => DxfVertex.fromDouble(dxf, e[0], e[1], e[2], layerName))
+            .toList(),
         super(
             dxf,
             'POLYLINE',
             layerName,
             [Code(90, vertices.length), Code(43, 0.0)]
-                .followedBy(vertices.expand((e) => [Code(10, e[0]), Code(20, e[1])]))
+                .followedBy(
+                    vertices.expand((e) => [Code(10, e[0]), Code(20, e[1])]))
                 .toList());
 }

@@ -43,7 +43,8 @@ class DxfSpline extends DxfEntity {
         case 10:
           entity._controlPoints.add(Offset(element.value, 0));
         case 20:
-          entity._controlPoints.last = Offset(entity._controlPoints.last.dx, element.value);
+          entity._controlPoints.last =
+              Offset(entity._controlPoints.last.dx, element.value);
         case 40:
           entity._knots.add(element.value);
       }
@@ -93,6 +94,7 @@ class DxfSpline extends DxfEntity {
               Code(43, 0.0)
             ]
                 .followedBy(knots.map((e) => Code(40, e)))
-                .followedBy(controlPoints.expand((e) => [Code(10, e.dx), Code(20, e.dy)]))
+                .followedBy(controlPoints
+                    .expand((e) => [Code(10, e.dx), Code(20, e.dy)]))
                 .toList());
 }

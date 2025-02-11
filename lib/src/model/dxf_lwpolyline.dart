@@ -40,7 +40,8 @@ class DxfLwPolyline extends DxfEntity {
   @override
   void draw(BlocksSection blocks, Canvas canvas, Paint paint) {
     for (int i = 0; i < _vertices.length; i++) {
-      canvas.drawLine(_vertices[i], _vertices[(i + 1) % _vertices.length], paint);
+      canvas.drawLine(
+          _vertices[i], _vertices[(i + 1) % _vertices.length], paint);
     }
   }
 
@@ -54,7 +55,8 @@ class DxfLwPolyline extends DxfEntity {
         case 10:
           entity._vertices.add(Offset(element.value, 0));
         case 20:
-          entity._vertices.last = Offset(entity._vertices.last.dx, element.value);
+          entity._vertices.last =
+              Offset(entity._vertices.last.dx, element.value);
       }
     }
     return entity;
@@ -71,7 +73,13 @@ class DxfLwPolyline extends DxfEntity {
             dxf,
             'LWPOLYLINE',
             layerName,
-            [Code(100, 'AcDbPolyline'), Code(90, vertices.length), Code(70, isClosed ? 1 : 0), Code(43, 0.0)]
-                .followedBy(vertices.expand((e) => [Code(10, e.dx), Code(20, e.dy)]))
+            [
+              Code(100, 'AcDbPolyline'),
+              Code(90, vertices.length),
+              Code(70, isClosed ? 1 : 0),
+              Code(43, 0.0)
+            ]
+                .followedBy(
+                    vertices.expand((e) => [Code(10, e.dx), Code(20, e.dy)]))
                 .toList());
 }
