@@ -31,8 +31,10 @@ class DXF {
 
   /// Get the BLOCKS section
   BlocksSection get blocks => _blocksSection;
+
+  /// Get the dxf boundaries
   Bounds get bounds => _headerSection.getBounds();
-  String newHandle() => _headerSection.increase();
+  String get newHandle => _headerSection.increase();
 
   /// Add an entity to the DXF object
   void addEntity(DxfEntity entity) {
@@ -165,10 +167,10 @@ class DXF {
 
   /// merge a second DXF into this, as a new BLOCK called [name], at [x],[y],[z] position
   void merge(DXF d, String name, {double x = 0, double y = 0, double z = 0}) {
-    String h = newHandle();
+    String h = newHandle;
     _tablesSection.insertBlock(name, h);
     List<DxfEntity> newEnt = List.from(d.entities.map((e) {
-      e.setCode(5, newHandle());
+      e.setCode(5, newHandle);
       e.setCode(330, h);
       return e;
     }));

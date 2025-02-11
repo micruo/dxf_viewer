@@ -50,7 +50,7 @@ class DxfEntity {
       [String? ref])
       : _codes = [
           Code(0, _type),
-          Code(5, dxf.newHandle()),
+          Code(5, dxf.newHandle),
           Code(330, ref ?? dxf.modelSpace()),
           Code(100, 'AcDbEntity'),
           Code(8, _layerName)
