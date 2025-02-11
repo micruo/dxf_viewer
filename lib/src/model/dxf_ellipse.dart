@@ -68,6 +68,7 @@ class DxfEllipse extends DxfXyz {
     // implement calcBoundaries
     super.calcBoundaries(blocks, b, off);
   }
+
   /// Create Ellipse entity.
   DxfEllipse(
     DXF dxf, {
