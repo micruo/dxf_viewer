@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:dxf_viewer/src/sections/blocks.dart';
+
 import 'xyz.dart';
 import '../dxf.dart';
 
@@ -59,6 +63,11 @@ class DxfEllipse extends DxfXyz {
     return entity;
   }
 
+  @override
+  void calcBoundaries(BlocksSection blocks, Bounds b, Offset off) {
+    // implement calcBoundaries
+    super.calcBoundaries(blocks, b, off);
+  }
   /// Create Ellipse entity.
   DxfEllipse(
     DXF dxf, {

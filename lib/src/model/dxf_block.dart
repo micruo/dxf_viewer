@@ -8,6 +8,7 @@ import '../sections/set.dart';
 class Block extends DxfXyz with DxfSet {
   String _name = '';
   int _bType = 0;
+
   get name => _name;
   get bType => _bType;
   Block.init(super.codes) : super.init();

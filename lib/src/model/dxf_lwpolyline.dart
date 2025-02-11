@@ -5,13 +5,14 @@ import 'dxf_entity.dart';
 
 class DxfLwPolyline extends DxfEntity {
   List<Offset> _vertices = [];
+  bool _isClosed = false;
+
   List<Offset> get vertices => _vertices;
   set vertices(List<Offset> value) {
     setCode(90, value.length);
     _vertices = value;
   }
 
-  bool _isClosed = false;
   bool get isClosed => _isClosed;
   set isClosed(bool value) {
     setCode(70, value ? 1 : 0);

@@ -5,7 +5,7 @@ import '../dxf.dart';
 
 class DxfText extends DxfXyz {
   String _textString = '';
-  double _textHeight = 2.5;
+  double _textHeight = 3;
 
   String get textString => _textString;
   set textString(String value) {
