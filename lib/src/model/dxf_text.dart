@@ -58,7 +58,7 @@ class DxfText extends DxfXyz {
         textAlign: TextAlign.justify,
         textDirection: TextDirection.ltr)
       ..layout();
-    textPainter.paint(canvas, Offset(x, -(y + _textHeight)));
+    textPainter.paint(canvas, Offset(coord.x, -(coord.y + _textHeight)));
     canvas.restore();
   }
 }

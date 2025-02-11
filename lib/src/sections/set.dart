@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../dxf_viewer.dart';
 
+/// mixin to create entities from Dxf code
 mixin DxfSet {
+  /// the entities
   final entities = <DxfEntity>[];
   void addEntities(List<DxfEntity> entities) => this.entities.addAll(entities);
   void addElements(List<Code> gc, int skip) {
@@ -55,6 +57,7 @@ mixin DxfSet {
   }
 }
 
+/// root class for all the Sections
 abstract class Section {
   /// DXF Group Codes
   final List<Code> _codes = [];
@@ -64,6 +67,8 @@ abstract class Section {
 
   /// Return the section from group codes
   void from(List<Code> codes) => _codes.addAll(codes);
+
+  /// write this section
   void write(StringSink s) {
     for (var g in _codes) {
       g.write(s);

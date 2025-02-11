@@ -6,29 +6,25 @@ import 'dxf_entity.dart';
 
 class DxfPolyline extends DxfEntity {
   bool _vertexFlag = true; /* vertex flag (always 1) [#66] */
-  double _baseX = 0;
-  double _baseY = 0;
-  double _baseZ = 0;
+  Vector _base = Vector();
   List<DxfVertex> _vertices = []; /* vertices of this polyline */
 
   set baseX(double value) {
     setCode(10, value);
-    _baseX = value;
+    _base.x = value;
   }
 
   set baseY(double value) {
     setCode(20, value);
-    _baseY = value;
+    _base.y = value;
   }
 
   set baseZ(double value) {
     setCode(30, value);
-    _baseZ = value;
+    _base.z = value;
   }
 
-  double get baseX => _baseX;
-  double get baseY => _baseY;
-  double get baseZ => _baseZ;
+  Vector get base => _base;
   bool get vertexFlag => _vertexFlag;
   /*
   int _typePL = 0; /* type of polyline [#70] */
@@ -48,9 +44,8 @@ class DxfPolyline extends DxfEntity {
 
   factory DxfPolyline.from(List<Code> codes) {
     var entity = DxfPolyline.init(codes);
-    entity._baseX = entity.getCode(10);
-    entity._baseY = entity.getCode(20);
-    entity._baseZ = entity.getCode(30);
+    entity._base =
+        Vector.from(entity.getCode(10), entity.getCode(20), entity.getCode(30));
     entity._vertexFlag = (entity.getCode(66) == 1);
     return entity;
   }
@@ -59,7 +54,7 @@ class DxfPolyline extends DxfEntity {
   }
 
   @override
-  void calcBoundaries(BlocksSection blocks, Bounds b, Offset off) {
+  void calcBoundaries(BlocksSection blocks, Bounds b, Vector off) {
     for (DxfVertex v in _vertices) {
       v.calcBoundaries(blocks, b, off);
     }
@@ -69,9 +64,9 @@ class DxfPolyline extends DxfEntity {
   void draw(BlocksSection blocks, Canvas canvas, Paint paint) {
     for (int i = 0; i < _vertices.length; i++) {
       canvas.drawLine(
-          Offset(_vertices[i].x, _vertices[i].y),
-          Offset(_vertices[(i + 1) % _vertices.length].x,
-              _vertices[(i + 1) % _vertices.length].y),
+          Offset(_vertices[i].coord.x, _vertices[i].coord.y),
+          Offset(_vertices[(i + 1) % _vertices.length].coord.x,
+              _vertices[(i + 1) % _vertices.length].coord.y),
           paint);
     }
   }

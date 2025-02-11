@@ -17,16 +17,16 @@ class DxfImage {
 
   void paint(Canvas canvas, Size size) {
     Bounds bounds = _dxf.bounds;
-    double iScale = min(size.width / (bounds.maxX - bounds.minX + 10),
-        size.height / (bounds.maxY - bounds.minY + 10));
+    double iScale = min(size.width / (bounds.max.x - bounds.min.x + 10),
+        size.height / (bounds.max.y - bounds.min.y + 10));
     var paint = Paint()
       ..color = Colors.black54
       ..strokeWidth = 0.5 / iScale
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.butt;
     canvas.scale(iScale * scale.width, -iScale * scale.height);
-    canvas.translate(scale.width < 0 ? -bounds.maxX - 5 : -bounds.minX + 5,
-        scale.height < 0 ? -bounds.minY + 5 : -bounds.maxY - 5);
+    canvas.translate(scale.width < 0 ? -bounds.max.x - 5 : -bounds.min.x + 5,
+        scale.height < 0 ? -bounds.min.y + 5 : -bounds.max.y - 5);
     for (DxfEntity e in _dxf.entities) {
       e.draw(_dxf.blocks, canvas, paint);
     }

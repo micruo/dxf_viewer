@@ -1,18 +1,14 @@
-import 'dart:ui';
 import '../sections/blocks.dart';
 import '../dxf.dart';
 import 'dxf_entity.dart';
 
 abstract class DxfXyz extends DxfEntity {
-  double _x = 0;
-  double _y = 0;
-  double _z = 0;
+  Vector _coord = Vector();
 
+  /// create a new DxfXyz
   DxfXyz(DXF dxf, String type, String layerName, String marker, double x,
       double y, double z, List<Code> addGroups)
-      : _x = x,
-        _y = y,
-        _z = z,
+      : _coord = Vector.from(x, y, z),
         super(
             dxf,
             type,
@@ -21,45 +17,52 @@ abstract class DxfXyz extends DxfEntity {
                 .followedBy(addGroups)
                 .toList());
 
-  double get x => _x;
+  /// returns the coordinate
+  Vector get coord => _coord;
+
+  /// set x coordinate
   set x(double value) {
     setCode(10, value);
-    _x = value;
+    _coord.x = value;
   }
 
-  double get y => _y;
+  /// set y coordinate
   set y(double value) {
     setCode(20, value);
-    _y = value;
+    _coord.y = value;
   }
 
-  double get z => _z;
+  /// set z coordinate
   set z(double value) {
     setCode(30, value);
-    _z = value;
+    _coord.z = value;
   }
 
   @override
-  void calcBoundaries(BlocksSection blocks, Bounds b, Offset off) {
-    if (_x + off.dx < b.minX) {
-      b.minX = _x + off.dx;
+  void calcBoundaries(BlocksSection blocks, Bounds b, Vector off) {
+    if (_coord.x + off.x < b.min.x) {
+      b.min.x = _coord.x + off.x;
     }
-    if (_y + off.dy < b.minY) {
-      b.minY = _y + off.dy;
+    if (_coord.y + off.y < b.min.y) {
+      b.min.y = _coord.y + off.y;
     }
-    if (_x + off.dx > b.maxX) {
-      b.maxX = _x + off.dx;
+    if (_coord.z + off.z < b.min.z) {
+      b.min.z = _coord.z + off.z;
     }
-    if (_y + off.dy > b.maxY) {
-      b.maxY = _y + off.dy;
+    if (_coord.x + off.x > b.max.x) {
+      b.max.x = _coord.x + off.x;
+    }
+    if (_coord.y + off.y > b.max.y) {
+      b.max.y = _coord.y + off.y;
+    }
+    if (_coord.z + off.z > b.max.z) {
+      b.max.z = _coord.z + off.z;
     }
   }
 
   DxfXyz.init(super.codes) : super.init();
 
   setCodes(List<Code> codes) {
-    _x = getCode(10);
-    _y = getCode(20);
-    _z = getCode(30);
+    _coord = Vector.from(getCode(10), getCode(20), getCode(30));
   }
 }

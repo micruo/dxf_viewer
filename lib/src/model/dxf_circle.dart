@@ -33,5 +33,5 @@ class DxfCircle extends DxfXyz {
             [Code(40, radius)]);
   @override
   void draw(BlocksSection blocks, Canvas canvas, Paint paint) =>
-      canvas.drawCircle(Offset(x, y), _radius, paint);
+      canvas.drawCircle(Offset(coord.x, coord.y), _radius, paint);
 }

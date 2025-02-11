@@ -58,14 +58,14 @@ class DxfInsert extends DxfXyz {
     return entity;
   }
   @override
-  void calcBoundaries(BlocksSection blocks, Bounds b, Offset off) {
-    blocks.getBlockByName(_blockName).calcBoundaries(blocks, b, Offset(x, y));
+  void calcBoundaries(BlocksSection blocks, Bounds b, Vector off) {
+    blocks.getBlockByName(_blockName).calcBoundaries(blocks, b, coord);
   }
 
   @override
   void draw(BlocksSection blocks, Canvas canvas, Paint paint) {
     canvas.save();
-    canvas.translate(x, y);
+    canvas.translate(coord.x, coord.y);
     for (DxfEntity e in blocks.getBlockByName(_blockName).entities) {
       e.draw(blocks, canvas, paint);
     }

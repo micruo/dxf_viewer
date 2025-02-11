@@ -4,57 +4,57 @@ import '../sections/blocks.dart';
 import '../dxf.dart';
 
 class DxfLine extends DxfXyz {
-  double _x1 = 0;
-  double _y1 = 0;
-  double _z1 = 0;
-
-  double get x1 => _x1;
+  Vector _coord1 = Vector();
+  Vector get coord1 => _coord1;
   set x1(double value) {
     setCode(11, value);
-    _x1 = value;
+    _coord1.x = value;
   }
 
-  double get y1 => _y1;
   set y1(double value) {
     setCode(21, value);
-    _y1 = value;
+    _coord1.y = value;
   }
 
-  double get z1 => _z1;
   set z1(double value) {
     setCode(31, value);
-    _z1 = value;
+    _coord1.z = value;
   }
 
   @override
-  void calcBoundaries(BlocksSection blocks, Bounds b, Offset off) {
+  void calcBoundaries(BlocksSection blocks, Bounds b, Vector off) {
     super.calcBoundaries(blocks, b, off);
-    if (_x1 + off.dx < b.minX) {
-      b.minX = _x1 + off.dx;
+    if (_coord1.x + off.x < b.min.x) {
+      b.min.x = _coord1.x + off.x;
     }
-    if (_y1 + off.dy < b.minY) {
-      b.minY = _y1 + off.dy;
+    if (_coord1.y + off.y < b.min.y) {
+      b.min.y = _coord1.y + off.y;
     }
-    if (_x1 + off.dx > b.maxX) {
-      b.maxX = _x1 + off.dx;
+    if (_coord1.z + off.z < b.min.z) {
+      b.min.z = _coord1.z + off.z;
     }
-    if (_y1 + off.dy > b.maxY) {
-      b.maxY = _y1 + off.dy;
+    if (_coord1.x + off.x > b.max.x) {
+      b.max.x = _coord1.x + off.x;
+    }
+    if (_coord1.y + off.y > b.max.y) {
+      b.max.y = _coord1.y + off.y;
+    }
+    if (_coord1.z + off.z > b.max.z) {
+      b.max.z = _coord1.z + off.z;
     }
   }
 
   @override
-  void draw(BlocksSection blocks, Canvas canvas, Paint paint) =>
-      canvas.drawLine(Offset(x, y), Offset(_x1, _y1), paint);
+  void draw(BlocksSection blocks, Canvas canvas, Paint paint) => canvas
+      .drawLine(Offset(coord.x, coord.y), Offset(_coord1.x, _coord1.y), paint);
 
   DxfLine.init(super.codes) : super.init();
 
   factory DxfLine.from(List<Code> codes) {
     var entity = DxfLine.init(codes);
     entity.setCodes(codes);
-    entity._x1 = entity.getCode(11);
-    entity._y1 = entity.getCode(21);
-    entity._z1 = entity.getCode(31);
+    entity._coord1 =
+        Vector.from(entity.getCode(11), entity.getCode(21), entity.getCode(31));
     return entity;
   }
   DxfLine(
@@ -66,9 +66,7 @@ class DxfLine extends DxfXyz {
     double x1 = 0,
     double y1 = 0,
     double z1 = 0,
-  })  : _x1 = x1,
-        _y1 = y1,
-        _z1 = z1,
+  })  : _coord1 = Vector.from(x1, y1, z1),
         super(dxf, 'LINE', layerName, 'AcDbLine', x, y, z, [
           Code(11, x1),
           Code(21, y1),

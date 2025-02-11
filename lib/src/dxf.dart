@@ -45,7 +45,7 @@ class DXF {
   void _recalcBoundaries() {
     Bounds bounds = Bounds();
     for (var element in _entitiesSection.entities) {
-      element.calcBoundaries(_blocksSection, bounds, Offset.zero);
+      element.calcBoundaries(_blocksSection, bounds, Vector());
     }
     _headerSection.setBounds(bounds);
   }
@@ -162,8 +162,8 @@ class DXF {
     await out.close();
   }
 
-  String modelSpace() =>
-      _blocksSection.getBlockByName("*Model_Space").getCode(5);
+  /// Return the Model_Space handle
+  String get modelSpace => _blocksSection.getBlockByName("*Model_Space").handle;
 
   /// merge a second DXF into this, as a new BLOCK called [name], at [x],[y],[z] position
   void merge(DXF d, String name, {double x = 0, double y = 0, double z = 0}) {
@@ -183,11 +183,13 @@ class DXF {
   }
 }
 
+/// the class to store the codes from a Dxf
 class Code {
   final int code;
   dynamic value;
   Code(this.code, this.value);
 
+  /// return the first Code with code = 'code'
   static Code search(List<Code> group, int code) {
     try {
       return group.firstWhere((element) => element.code == code);
@@ -196,18 +198,41 @@ class Code {
     }
   }
 
+  /// return the first Code with code = 'code' or null
   static Code? trySearch(List<Code> group, int code) =>
       group.where((element) => element.code == code).firstOrNull;
 
+  /// write code
   void write(StringSink s) =>
       s.write('${code.toString().padLeft(3, ' ')}\r\n$value\r\n');
 }
 
+/// class to store a x,y,z triple
+class Vector {
+  double x = 0;
+  double y = 0;
+  double z = 0;
+  Vector();
+  Vector.from(this.x, this.y, this.z);
+}
+
+/// class to store the dxf boundaries
 class Bounds {
-  double minX = 1e30;
-  double minY = 1e30;
-  double maxX = -1e30;
-  double maxY = -1e30;
-  Map<String, double> toJson() =>
-      {'minX': minX, 'minY': minY, 'maxX': maxX, 'maxY': maxY};
+  Bounds();
+  Bounds.from(double minX, double minY, double minZ, double maxX, double maxY,
+      double maxZ)
+      : min = Vector.from(minX, minY, minZ),
+        max = Vector.from(maxX, maxY, maxZ);
+  Vector min = Vector.from(1e30, 1e30, 1e30);
+  Vector max = Vector.from(-1e30, -1e30, -1e30);
+
+  /// convert to json
+  Map<String, double> toJson() => {
+        'minX': min.x,
+        'minY': min.y,
+        'maxX': max.x,
+        'maxY': max.y,
+        'minZ': min.z,
+        'maxZ': max.z
+      };
 }

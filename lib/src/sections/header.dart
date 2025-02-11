@@ -23,11 +23,13 @@ class HeaderSection extends Section {
         (element) => element.code == 9 && element.value == '\$EXTMIN');
     int max = codes.indexWhere(
         (element) => element.code == 9 && element.value == '\$EXTMAX');
-    Bounds b = Bounds();
-    b.minX = codes[min + 1].value;
-    b.minY = codes[min + 2].value;
-    b.maxX = codes[max + 1].value;
-    b.maxY = codes[max + 2].value;
+    Bounds b = Bounds.from(
+        codes[min + 1].value,
+        codes[min + 2].value,
+        codes[min + 3].value,
+        codes[max + 1].value,
+        codes[max + 2].value,
+        codes[max + 3].value);
     return b;
   }
 
@@ -36,10 +38,12 @@ class HeaderSection extends Section {
         (element) => element.code == 9 && element.value == '\$EXTMIN');
     int max = codes.indexWhere(
         (element) => element.code == 9 && element.value == '\$EXTMAX');
-    codes[min + 1].value = bounds.minX;
-    codes[min + 2].value = bounds.minY;
-    codes[max + 1].value = bounds.maxX;
-    codes[max + 2].value = bounds.maxY;
+    codes[min + 1].value = bounds.min.x;
+    codes[min + 2].value = bounds.min.y;
+    codes[min + 3].value = bounds.min.z;
+    codes[max + 1].value = bounds.max.x;
+    codes[max + 2].value = bounds.max.y;
+    codes[max + 3].value = bounds.max.z;
   }
 
   factory HeaderSection.from(List<Code> codes) {

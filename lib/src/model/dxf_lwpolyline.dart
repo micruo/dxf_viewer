@@ -20,20 +20,20 @@ class DxfLwPolyline extends DxfEntity {
   }
 
   @override
-  void calcBoundaries(BlocksSection blocks, Bounds b, Offset off) {
+  void calcBoundaries(BlocksSection blocks, Bounds b, Vector off) {
     for (var v in _vertices) {
-      Offset o = v + off;
-      if (o.dx < b.minX) {
-        b.minX = o.dx;
+      Offset o = Offset(v.dx + off.x, v.dy + off.y);
+      if (o.dx < b.min.x) {
+        b.min.x = o.dx;
       }
-      if (o.dy < b.minY) {
-        b.minY = o.dy;
+      if (o.dy < b.min.y) {
+        b.min.y = o.dy;
       }
-      if (o.dx > b.maxX) {
-        b.maxX = o.dx;
+      if (o.dx > b.max.x) {
+        b.max.x = o.dx;
       }
-      if (o.dy > b.maxY) {
-        b.maxY = o.dy;
+      if (o.dy > b.max.y) {
+        b.max.y = o.dy;
       }
     }
   }

@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'dxf_entity.dart';
 import 'xyz.dart';
 import '../sections/blocks.dart';
@@ -21,7 +20,7 @@ class Block extends DxfXyz with DxfSet {
     return block;
   }
   @override
-  void calcBoundaries(BlocksSection blocks, Bounds b, Offset off) {
+  void calcBoundaries(BlocksSection blocks, Bounds b, Vector off) {
     for (DxfEntity d in entities) {
       d.calcBoundaries(blocks, b, off);
     }

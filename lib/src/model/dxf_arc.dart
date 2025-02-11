@@ -39,7 +39,7 @@ class DxfArc extends DxfXyz {
   }
   @override
   void draw(BlocksSection blocks, Canvas canvas, Paint paint) => canvas.drawArc(
-      Rect.fromCircle(center: Offset(x, y), radius: _radius),
+      Rect.fromCircle(center: Offset(coord.x, coord.y), radius: _radius),
       _startAngle / 180 * pi,
       (_endAngle - _startAngle + (_endAngle < _startAngle ? 360 : 0)) /
           180 *

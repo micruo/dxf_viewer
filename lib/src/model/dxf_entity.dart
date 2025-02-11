@@ -33,28 +33,37 @@ class DxfEntity {
     setCode(8, value);
   }
 
+  /// return the value of first Code with code = 'code'
   dynamic getCode(int code) => Code.search(_codes, code).value;
+
+  /// set the value of first Code with code = 'code'
   void setCode(int code, dynamic value) =>
       Code.search(_codes, code).value = value;
+
+  /// return all the codes
   get codes => _codes;
+
+  /// create an empty DxfEntity
   DxfEntity.init(this._codes) {
     _layerName = getCode(8);
     _type = getCode(0);
   }
 
+  /// create a DxfEntity with codes
   factory DxfEntity.from(List<Code> codes) {
     return DxfEntity.init(codes);
   }
 
+  /// create a new DxfEntity
   DxfEntity(DXF dxf, this._type, this._layerName, List<Code> addGroups,
       [String? ref])
       : _codes = [
           Code(0, _type),
           Code(5, dxf.newHandle),
-          Code(330, ref ?? dxf.modelSpace()),
+          Code(330, ref ?? dxf.modelSpace),
           Code(100, 'AcDbEntity'),
           Code(8, _layerName)
         ].followedBy(addGroups).toList();
-  void calcBoundaries(BlocksSection blocks, Bounds b, Offset off) {}
+  void calcBoundaries(BlocksSection blocks, Bounds b, Vector off) {}
   void draw(BlocksSection blocks, Canvas canvas, Paint paint) {}
 }
