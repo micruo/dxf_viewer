@@ -17,8 +17,7 @@ class _MyAppState extends State<MyApp> {
     d.addEntity(text);
     DxfLine line = DxfLine(d, x: 50, y: 10, x1: 100, y1: 10);
     d.addEntity(line);
-    DxfImage di = DxfImage(d, const Size(2, 2));
-    return DxfViewer(dxf: di);
+    return DxfViewer(d, scale: const Size(2, 2));
   }
 
   @override

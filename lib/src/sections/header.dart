@@ -11,6 +11,8 @@ class HeaderSection extends Section {
   HeaderSection();
 
   int _nextHandle = 400;
+
+  /// Return a new unique identifier
   String increase() {
     String curr = _nextHandle.toRadixString(16);
     _nextHandle++;
@@ -18,6 +20,7 @@ class HeaderSection extends Section {
     return curr;
   }
 
+  /// get the drawing boundaries
   Bounds getBounds() {
     int min = codes.indexWhere(
         (element) => element.code == 9 && element.value == '\$EXTMIN');
@@ -33,6 +36,7 @@ class HeaderSection extends Section {
     return b;
   }
 
+  /// set the new drawing boundaries
   void setBounds(Bounds bounds) {
     int min = codes.indexWhere(
         (element) => element.code == 9 && element.value == '\$EXTMIN');
@@ -46,6 +50,7 @@ class HeaderSection extends Section {
     codes[max + 3].value = bounds.max.z;
   }
 
+  /// create an HeaderSection from DXF codes
   factory HeaderSection.from(List<Code> codes) {
     var section = HeaderSection();
     section.from(codes);

@@ -10,7 +10,7 @@ import '../dxf.dart';
 class TablesSection extends Section {
   TablesSection();
 
-  /// Return the Tables section from group codes
+  /// create a TablesSection from DXF codes
   factory TablesSection.from(List<Code> codes) {
     var section = TablesSection();
     section.from(codes);

@@ -10,6 +10,7 @@ import '../dxf.dart';
 class ClassesSection extends Section {
   ClassesSection();
 
+  /// create a ClassesSection from DXF codes
   factory ClassesSection.from(List<Code> codes) {
     var section = ClassesSection();
     section.from(codes);

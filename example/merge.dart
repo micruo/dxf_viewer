@@ -19,8 +19,7 @@ class _MyAppState extends State<MyApp> {
     DXF d1 = DXF.fromFile(File("test1.dxf"));
     DXF d2 = DXF.fromFile(File("test2.dxf"));
     d1.merge(d2, 'NEW', y: 120.0);
-    DxfImage di = DxfImage(d1, const Size(2, 2));
-    dxf = DxfViewer(dxf: di);
+    dxf = DxfViewer(d1);
     super.initState();
   }
 

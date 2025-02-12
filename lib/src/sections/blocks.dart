@@ -10,6 +10,7 @@ class BlocksSection {
   /// DXF Group Codes
   final List<Block> _blocks = [];
 
+  /// create a BlocksSection from DXF codes
   factory BlocksSection.from(List<Code> codes) {
     var section = BlocksSection();
     List<Code> nCodes = [];
@@ -25,9 +26,15 @@ class BlocksSection {
     }
     return section;
   }
+
+  /// Add a block to this section
   void addBlock(Block b) => _blocks.add(b);
+
+  /// Retrieve block by name
   Block getBlockByName(String name) =>
       _blocks.firstWhere((element) => element.name == name);
+
+  /// Write this section
   void write(StringSink s) {
     s.write('  0\r\nSECTION\r\n  2\r\nBLOCKS\r\n');
     for (var g in _blocks) {

@@ -9,6 +9,7 @@ import '../dxf.dart';
 class ObjectsSection extends Section {
   ObjectsSection();
 
+  /// create an ObjectsSection from DXF codes
   factory ObjectsSection.from(List<Code> codes) {
     var section = ObjectsSection();
     section.from(codes);

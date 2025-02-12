@@ -1,9 +1,9 @@
 
-Implements a library to create, read, write, modify and visualize an AutoCAD DXF (Drawing Interchange Format, or Drawing Exchange Format) by AutoDesk
+Implements a library to create, read, write, modify and  an AutoCAD DXF (Drawing Interchange Format, or Drawing Exchange Format) by AutoDesk
 
 ## Features
 
-The library can create, read, write, modify and visualize an AutoCAD DXF
+The library can create, read, write, modify and display an AutoCAD DXF
 
 ## Installing
 
@@ -29,7 +29,7 @@ Define a Stateful Widget that load and then show a DXF
     DxfViewer? dxf;
     @override
     void initState() {
-      dxf = DxfViewer(file: File('test1.dxf'));
+      dxf = DxfViewer.fromFile(File('test1.dxf'));
       super.initState();
     }
 
@@ -46,7 +46,7 @@ Define a Stateful Widget that load and then show a DXF
               builder: (context) {
                 return Column(
                   children: [
-                    dxf ?? const Text('Hello, World!'),
+                    dxf ?? const Text('Wait...'),
                   ],
                 );
               },

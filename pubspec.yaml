@@ -1,6 +1,6 @@
 name: dxf_viewer
-description: A library to create, read, write, modify and visualize an AutoCAD DXF by AutoDesk
-version: 0.0.2
+description: A library to create, read, write, modify and display an AutoCAD DXF by AutoDesk
+version: 0.0.3
 homepage: https://github.com/micruo/dxf_viewer
 
 environment:

@@ -1,7 +1,6 @@
 library;
 
 export 'src/viewer/dxf_viewer.dart';
-export 'src/viewer/dxf_image.dart';
 export 'src/model/dxf_arc.dart';
 export 'src/model/dxf_circle.dart';
 export 'src/model/dxf_ellipse.dart';

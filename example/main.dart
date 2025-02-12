@@ -16,7 +16,7 @@ class _MyAppState extends State<MyApp> {
   DxfViewer? dxf;
   @override
   void initState() {
-    dxf = DxfViewer(file: File('test1.dxf'));
+    dxf = DxfViewer.fromFile(File('test1.dxf'));
     super.initState();
   }
 
@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
             builder: (context) {
               return Column(
                 children: [
-                  dxf ?? const Text('Hello, World!'),
+                  dxf ?? const Text('Wait...'),
                 ],
               );
             },
